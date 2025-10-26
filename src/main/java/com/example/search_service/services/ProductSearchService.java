@@ -23,7 +23,9 @@ public class ProductSearchService {
                                 .fuzzy(f -> f
                                         .field("name")
                                         .value(keyword)
-                                        .fuzziness("AUTO")
+                                        .fuzziness("2")
+                                        .prefixLength(0)
+                                        .maxExpansions(50)
                                 )
                         ),
                 ProductDocument.class
