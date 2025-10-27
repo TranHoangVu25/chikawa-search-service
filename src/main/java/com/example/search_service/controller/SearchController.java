@@ -2,7 +2,7 @@ package com.example.search_service.controller;
 
 import com.example.search_service.models.ProductDocument;
 import com.example.search_service.repositories.ProductRepository;
-import com.example.search_service.services.ProductSearchService;
+import com.example.search_service.services.ProductSearchServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.List;
 public class SearchController {
 
     private final ProductRepository repository;
-    private final ProductSearchService productSearchService;
+    private final ProductSearchServiceImpl productSearchService;
 
     @GetMapping
     public List<ProductDocument> search(@RequestParam String q) {
@@ -26,12 +26,12 @@ public class SearchController {
     }
 
     @GetMapping("/fuzzy")
-    public ProductSearchService.SearchResult searchFuzzyByName(@RequestParam String q) throws IOException {
+    public ProductSearchServiceImpl.SearchResult searchFuzzyByName(@RequestParam String q) throws IOException {
         return productSearchService.searchFuzzyByName(q);
     }
 
     @GetMapping("/all")
-    public ProductSearchService.SearchResult getAllProducts() throws IOException {
+    public ProductSearchServiceImpl.SearchResult getAllProducts() throws IOException {
         return productSearchService.getAllProducts();
     }
 }

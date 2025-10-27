@@ -15,6 +15,8 @@ public class RabbitMQConfig {
     public static final String EXCHANGE = "product_exchange";
     public static final String ROUTING_KEY = "product.created";
     public static final String QUEUE = "search_service_queue";
+    public static final String DELETE_QUEUE = "product_delete_queue";
+    public static final String DELETE_ROUTING_KEY = "product.delete";
 
     @Bean
     public TopicExchange exchange() {
@@ -27,8 +29,18 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding1(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    }
+
+    @Bean
+    public Queue queue1() {
+        return new Queue(DELETE_QUEUE, true);
+    }
+
+    @Bean
+    public Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(DELETE_ROUTING_KEY);
     }
     @Bean
     public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {

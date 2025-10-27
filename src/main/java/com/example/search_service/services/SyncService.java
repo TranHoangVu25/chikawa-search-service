@@ -38,7 +38,6 @@ public class SyncService {
                         .characters(p.getCharacters() != null ? p.getCharacters() : List.of())
                         .build())
                 .toList();
-
         elasticRepo.saveAll(docs);
         System.out.println("✅ Đã đồng bộ " + docs.size() + " sản phẩm vào Elasticsearch.");
     }
