@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductSearchService {
+public class ProductSearchServiceImpl implements ProductSearchService{
 
     private final ElasticsearchClient elasticClient;
 
@@ -59,5 +59,4 @@ public class ProductSearchService {
 
         return new SearchResult(count, results);
     }
-
 }
