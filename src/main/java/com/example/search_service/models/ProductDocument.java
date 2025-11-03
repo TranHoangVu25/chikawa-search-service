@@ -18,14 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)   // 👈 Thêm dòng này
-
 public class ProductDocument {
     @Id
     private String id;
-    @Field(type = FieldType.Text, analyzer = "autocomplete", searchAnalyzer = "standard")
     private String name;
     private String description;
     private Double price;
+    private String status;
     private List<String> categories;
     private List<String> characters;
 }

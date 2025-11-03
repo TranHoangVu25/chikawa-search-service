@@ -1,5 +1,7 @@
 package com.example.search_service.models;
 
+import com.example.search_service.dto.request.CategoryDTO;
+import com.example.search_service.dto.request.CharacterDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +18,7 @@ public class ProductSearchEvent {
     private String name;
     private String description;
     private Double price;
-    private List<String> categories;
-    private List<String> characters;
+    private String status;
+    private List<CategoryDTO> categories;
+    private List<CharacterDTO> characters;
 }
