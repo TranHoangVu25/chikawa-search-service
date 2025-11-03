@@ -1,4 +1,4 @@
 package com.example.search_service.dto;
 
-public class SearchResultDTO {
+public class CountItemDTO {
 }
