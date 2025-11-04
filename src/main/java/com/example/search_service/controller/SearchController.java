@@ -23,14 +23,9 @@ public class SearchController {
     private final ProductRepository repository;
     private final ProductSearchServiceImpl productSearchService;
 
-    @GetMapping
-    public List<ProductDocument> search(@RequestParam String q) {
-        return repository.findByNameContainingOrDescriptionContaining(q, q);
-    }
-
     @GetMapping("/test")
     public ResponseEntity<?> searchProducts(
-            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String q,
             @RequestParam(required = false) List<String> categories,
             @RequestParam(required = false) List<String> characters,
             @RequestParam(required = false) Double minPrice,
@@ -38,13 +33,12 @@ public class SearchController {
             @RequestParam(required = false) String status,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int limit,
-            @RequestParam(defaultValue = "id") String sortBy,     // Service có fallback, nhưng đặt default ở đây rõ ràng hơn
-            @RequestParam(defaultValue = "desc") String sortOrder // Service có fallback, nhưng đặt default ở đây rõ ràng hơn
+            @RequestParam(defaultValue = "id") String sortBy, //tìm kiếm theo các field id,name.keyword,createdAt,status
+            @RequestParam(defaultValue = "desc") String sortOrder //asc, desc
     ) {
         try {
-            // Gọi service với các tham số đã nhận
             SearchResultDTO result = productSearchService.searchProducts(
-                    name,
+                    q,
                     categories,
                     characters,
                     minPrice,
@@ -56,19 +50,14 @@ public class SearchController {
                     sortOrder
             );
 
-            // Trả về kết quả tìm kiếm thành công (HTTP 200 OK)
             return ResponseEntity.ok(result);
 
         } catch (IOException e) {
-            // Xử lý lỗi nếu có sự cố khi giao tiếp với Elasticsearch
-            // Trả về lỗi 500 Internal Server Error
-            e.printStackTrace(); // Nên log lỗi này trong thực tế
+            e.printStackTrace();
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Lỗi trong quá trình tìm kiếm: " + e.getMessage());
         } catch (Exception e) {
-            // Xử lý các lỗi ngoại lệ khác (ví dụ: tham số không hợp lệ không được Spring xử lý)
-            // Trả về lỗi 400 Bad Request
             e.printStackTrace();
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

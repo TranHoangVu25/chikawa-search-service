@@ -78,7 +78,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         if (status != null && !status.isEmpty()) {
             // Sửa lại: Dùng TermQuery trên trường "status" (vì nó là keyword gốc)
             filters.add(TermQuery.of(t -> t
-                    .field("status") // <--- SỬA LẠI 1: Bỏ .keyword
+                    .field("status")
                     .value(status)
                     .caseInsensitive(true)
             )._toQuery());
@@ -149,8 +149,6 @@ public class ProductSearchServiceImpl implements ProductSearchService {
                     .map(b -> new CountItemDTO(b.key().stringValue(), b.docCount()))
                     .toList();
         }
-
-        // Dòng này bây giờ đã khớp với DTO của bạn
         return new SearchResultDTO(total, page, limit, status, results, charactersCount, categoriesCount, statusCount);
     }
 }

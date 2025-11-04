@@ -45,13 +45,13 @@ public class SyncService {
                 .map(p -> ProductDocument.builder()
                         .id(p.getId())
                         .name(p.getName())
-                        .description(p.getDescription())
+//                        .created_at(p.getCreated_at())
                         .price(p.getPrice())
                         .status(p.getStatus())
                         .categories(
                                 p.getCategories() != null
                                         ? p.getCategories().stream()
-                                        .map(CategoryDTO::getName) // hoặc getSlug()
+                                        .map(CategoryDTO::getName)
                                         .toList()
                                         : List.of()
                         )
@@ -62,6 +62,12 @@ public class SyncService {
                                         .toList()
                                         : List.of()
                         )
+                        .images(
+                                p.getImages() != null && !p.getImages().isEmpty()
+                                        ? List.of(p.getImages().get(0))
+                                        : List.of()
+                        )
+
                         .build())
                 .toList();
 

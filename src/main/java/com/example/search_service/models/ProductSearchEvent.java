@@ -6,7 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,9 +21,9 @@ import java.util.List;
 public class ProductSearchEvent {
     private String id;
     private String name;
-    private String description;
-    private Double price;
-    private String status;
     private List<CategoryDTO> categories;
     private List<CharacterDTO> characters;
+    private Double price;
+    private String status;
+    private List<String> images;
 }

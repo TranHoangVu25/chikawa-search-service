@@ -27,7 +27,7 @@ public class ListenProductEvent {
         ProductDocument doc = ProductDocument.builder()
                 .id(event.getId())
                 .name(event.getName())
-                .description(event.getDescription())
+//                .description(event.getDescription())
                 .price(event.getPrice())
                 .categories(
                         event.getCategories() != null
