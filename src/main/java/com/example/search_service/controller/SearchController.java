@@ -1,7 +1,6 @@
 package com.example.search_service.controller;
 
 import com.example.search_service.dto.SearchResultDTO;
-import com.example.search_service.models.ProductDocument;
 import com.example.search_service.repositories.ProductRepository;
 import com.example.search_service.services.ProductSearchServiceImpl;
 import lombok.RequiredArgsConstructor;
