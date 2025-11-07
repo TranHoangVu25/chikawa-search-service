@@ -90,8 +90,26 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         if (!filters.isEmpty()) boolBuilder.filter(filters);
 
         // Sắp xếp
+//        List<SortOptions> sortOptions = new ArrayList<>();
+//        if (sortBy != null && !sortBy.isEmpty()) {
+//            sortOptions.add(SortOptions.of(s -> s
+//                    .field(f -> f
+//                            .field(sortBy)
+//                            .order("desc".equalsIgnoreCase(sortOrder) ? SortOrder.Desc : SortOrder.Asc)
+//                    )
+//            ));
+//        } else {
+//            sortOptions.add(SortOptions.of(s -> s
+//                    .field(f -> f.field("id").order(SortOrder.Desc))
+//            ));
+//        }
+// 🔽 Nếu có tìm theo name => ưu tiên sắp theo score
         List<SortOptions> sortOptions = new ArrayList<>();
-        if (sortBy != null && !sortBy.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
+            sortOptions.add(SortOptions.of(s -> s
+                    .score(sc -> sc.order(SortOrder.Desc))
+            ));
+        } else if (sortBy != null && !sortBy.isEmpty()) {
             sortOptions.add(SortOptions.of(s -> s
                     .field(f -> f
                             .field(sortBy)
