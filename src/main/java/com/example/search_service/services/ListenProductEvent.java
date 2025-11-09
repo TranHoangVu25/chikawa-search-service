@@ -27,10 +27,12 @@ public class ListenProductEvent {
             if (Objects.equals(event.getAction(), Action.CREATE)) {
                 System.out.println("Received: " + event.getName());
                 System.out.println("in create product");
+                System.out.println("event:"+event);
                 ProductDocument doc = ProductDocument.builder()
                 .id(event.getId())
                 .name(event.getName())
                 .price(event.getPrice())
+                        .status(event.getStatus())
                 .categories(
                         event.getCategories() != null
                                 ? event.getCategories().stream()
@@ -45,7 +47,12 @@ public class ListenProductEvent {
                                 .toList()
                                 : List.of()
                 )
-                .build();
+                        .images(
+                                event.getImages() != null && !event.getImages().isEmpty()
+                                        ? List.of(event.getImages().get(0))
+                                        : List.of()
+                        )
+                        .build();
 
         repository.save(doc);
         System.out.println("Indexed product in Elasticsearch: " + event.getId());
@@ -66,6 +73,7 @@ public class ListenProductEvent {
 
                 d.setName(event.getName());
                 d.setPrice(event.getPrice());
+                d.setStatus(event.getStatus());
                 d.setCategories(event.getCategories() != null
                         ? event.getCategories()
                         .stream()
@@ -80,7 +88,11 @@ public class ListenProductEvent {
                         .toList()
                         : List.of()
                 );
-
+                d.setImages(
+                        event.getImages() != null && !event.getImages().isEmpty()
+                                ? List.of(event.getImages().get(0))
+                                : List.of()
+                );
                 repository.save(d);
 
                 System.out.println("Update. Indexed product in Elasticsearch: " + event.getId());

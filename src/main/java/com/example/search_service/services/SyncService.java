@@ -25,7 +25,7 @@ public class SyncService {
     private final RestTemplate restTemplate;
 
     @Value("${product.service.url}")
-    private String productServiceUrl; // http://product-service:8082/api/products/all
+    private String productServiceUrl;
 
     public void syncAllProducts() {
         ResponseEntity<ApiResponse<ProductSearchEvent[]>> response = restTemplate.exchange(

@@ -3,6 +3,7 @@ package com.example.search_service.models;
 import com.example.search_service.Enums.Action;
 import com.example.search_service.dto.request.CategoryDTO;
 import com.example.search_service.dto.request.CharacterDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,10 +18,11 @@ import java.util.List;
 public class ProductReceiveEvent {
     private String id;
     private String name;
+    private Double price;
+    @JsonProperty("status")
+    private String status;
     private List<CategoryDTO> categories;
     private List<CharacterDTO> characters;
-    private Double price;
-    private String status;
     private List<String> images;
     private Action action;
 }
